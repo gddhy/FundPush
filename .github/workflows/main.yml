@@ -1,0 +1,38 @@
+name: 基金查询
+
+on: 
+  schedule:
+    - cron: "0 5 * * *"  # UTC+8
+  push:
+    branches:
+      - master
+      
+jobs:
+  build: 
+    runs-on: ubuntu-18.04 
+        
+    steps:
+    # check it to your workflow can access it
+    # from: https://github.com/actions/checkout
+    - name: Checkout Repository master branch
+      uses: actions/checkout@master 
+      
+    # from: https://github.com/actions/setup-node  
+    - name: Setup Node.js 10.x 
+      uses: actions/setup-node@master
+      with:
+        node-version: "10.x"
+    
+    - name: Setup 
+      run: |
+        npm install --save request
+     
+    - name: Check and Push 
+      env:
+        CORPID: ${{secrets.CORPID}}
+        SECRET: ${{secrets.SECRET}}
+        AGENTID: ${{secrets.AGENTID}}
+        ID: ${{secrets.ID}}
+      run: |
+        node ./main.js $CORPID $SECRET $AGENTID $ID
+        
