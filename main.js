@@ -135,7 +135,7 @@ request(url, function(error, response, body) {
         //console.log(body); 
         var json = JSON.parse(body); 
         var time = json['sysTime2'];
-        var text = '查询完成\n当前时间：\n'+time;
+        var text = '查询完成，当前时间：\n'+time;
         WeChatPush(text)
     } else {
         console.log("网络时间获取失败");

@@ -16,6 +16,8 @@ SECRET CORPID AGENTID在企业微信中申请，ID为基金id，可以添加多�
 
 https://work.weixin.qq.com/wework_admin/frame#profile
 
+若要修改定时触发时间，修改main.yml中的 cron 表达式
+
 
 ### 本地运行
 
@@ -29,3 +31,19 @@ npm install --save request
 ```
 node main.js
 ```
+
+
+### 新加的Webhook触发方式，参考
+
+https://p3terx.com/archives/github-actions-manual-trigger.html
+```
+curl -X POST https://api.github.com/repos/:owner/:repo/dispatches \
+    -H "Accept: application/vnd.github.everest-preview+json" \
+    -H "Authorization: token ACTIONS_TRIGGER_TOKEN" \
+    --data '{"event_type": "TRIGGER_KEYWORDS"}'
+```
+
+:owner - 用户名  
+:repo - 需要触发的 Github Action 所在的仓库名称  
+ACTIONS_TRIGGER_TOKEN - 带有 repo 权限的 Personal access token  
+TRIGGER_KEYWORDS - 自定义 Webhook 事件名称，可以为任意值，Actions 列表中会显示此名称  
